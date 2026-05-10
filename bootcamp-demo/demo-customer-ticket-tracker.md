@@ -1,7 +1,10 @@
-# 💬 Bootcamp Demo: Customer Support Ticket Tracker (Feature Ladder)
+# 💬 Bootcamp Demo: Customer Support Ticket Tracker
+
+![Customer Support / Help Desk](https://plus.unsplash.com/premium_photo-1661490813116-3b678da41ff4?auto=format&fit=crop&w=1200&q=60
+)
 
 ## ⏱️ Demo Time
-~25–30 minutes (10:30 AM – 11:00 AM)
+~25–30 minutes
 
 ## 🎯 Goal
 Build a simple customer support ticket system.
