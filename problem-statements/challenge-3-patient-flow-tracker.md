@@ -1,4 +1,6 @@
-# 🏥 Challenge 3: Patient Flow Tracker (Feature Ladder)
+# 🏥 Challenge 3: Patient Flow Tracker
+
+![Hospital Patient Flow](https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=1200&q=60)
 
 ## 🎯 Goal
 Build a system to track patient journey inside a hospital.
