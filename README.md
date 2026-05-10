@@ -41,7 +41,8 @@ Track patient journey in hospital system
 ## 🛠️ Instructions
 
 1. Choose one challenge  
-2. Build incrementally using Feature Ladder  
+2. Build incrementally Don’t try to build the whole solution at once.
+Instead, build it step by step — feature by feature.
 3. Use GitHub Copilot (Chat + Inline)  
 4. Prepare a short demo  
 
