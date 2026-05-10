@@ -1,4 +1,4 @@
-# 🚚 Challenge 2: Fleet Delivery Tracker (Feature Ladder)
+# 🚚 Challenge 2: Fleet Delivery Tracker
 
 ![Delivery Truck Logistics](https://images.unsplash.com/photo-1681514583222-0579e6835666?auto=format&fit=crop&w=1200&q=60)
 
