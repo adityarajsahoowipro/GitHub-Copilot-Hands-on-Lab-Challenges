@@ -1,4 +1,4 @@
-# ✈️ Challenge 1: Aircraft Maintenance Tracker (Feature Ladder)
+# ✈️ Challenge 1: Aircraft Maintenance Tracker
 
 ## 🎯 Goal
 Build a system to track the maintenance status of aircrafts in real-time.
@@ -21,14 +21,21 @@ Each aircraft goes through maintenance stages:
 
 ## 🪜 Feature Ladder
 
-### ✅ Feature 0 — Setup
-- Project setup
-- Add basic `/health` or CLI command
-- In-memory list of aircrafts
+### ✅ Feature 0 — Start Your App
+
+Make sure your project is running.
+
+- Add a simple `/health` endpoint returning "OK"
+
+✅ Done when:
+- App runs successfully
+- `/health` works
+``
 
 ---
 
 ### ✅ Feature 1 — Aircraft Registration
+- Create an in-memory list to store aircrafts
 - Add new aircraft
 - List all aircraft
 - Default status = SCHEDULED
