@@ -67,7 +67,7 @@ Track patient movement in hospital
 
 ## 🛠️ Instructions
 
-1. Choose one challenge  
+1. Start challenges  
 2. Follow Feature Ladder approach  
 3. Use GitHub Copilot actively  
 4. Build incrementally  
