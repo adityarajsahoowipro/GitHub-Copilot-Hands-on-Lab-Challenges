@@ -1,5 +1,7 @@
 # 🚚 Challenge 2: Fleet Delivery Tracker (Feature Ladder)
 
+![Delivery Truck Logistics](https://images.unsplash.com/photo-1681514583222-0579e6835666?auto=format&fit=crop&w=1200&q=60)
+
 ## 🎯 Goal
 Build a system to track delivery vehicles and their shipment status.
 
