@@ -1,5 +1,7 @@
 # ✈️ Challenge 1: Aircraft Maintenance Tracker
 
+![Aircraft Maintenance](https://images.stockcake.com/public/a/9/f/a9ffe682-d7cc-4b05-bf61-b19f61e8a30c_large/airplane-maintenance-hangar-stockcake.jpg)
+
 ## 🎯 Goal
 Build a system to track the maintenance status of aircrafts in real-time.
 
@@ -30,7 +32,6 @@ Make sure your project is running.
 ✅ Done when:
 - App runs successfully
 - `/health` works
-``
 
 ---
 
