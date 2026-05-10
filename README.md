@@ -37,7 +37,7 @@ Live demo showcasing:
 
 ---
 
-## 🧩 Hands-on Challenges (Choose ANY ONE)
+## 🧩 Hands-on Challenges
 
 ### ✈️ Aircraft Maintenance Tracker
 Track aircraft through maintenance lifecycle  
