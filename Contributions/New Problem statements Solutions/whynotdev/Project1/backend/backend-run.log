@@ -1,0 +1,29 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.5)
+
+2026-09-09T12:35:42.388+05:30  INFO 23332 --- [incident-response-backend] [           main] c.i.IncidentResponseApplication          : Starting IncidentResponseApplication using Java 22.0.2 with PID 23332 (C:\Users\AR40176336\Desktop\GithubCopilotLab\Project1\backend\target\classes started by AR40176336 in C:\Users\AR40176336\Desktop\GithubCopilotLab\Project1\backend)
+2026-09-09T12:35:42.414+05:30  INFO 23332 --- [incident-response-backend] [           main] c.i.IncidentResponseApplication          : No active profile set, falling back to 1 default profile: "default"
+2026-09-09T12:35:47.812+05:30  INFO 23332 --- [incident-response-backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-09-09T12:35:47.900+05:30  INFO 23332 --- [incident-response-backend] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-09T12:35:47.900+05:30  INFO 23332 --- [incident-response-backend] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.44]
+2026-09-09T12:35:48.201+05:30  INFO 23332 --- [incident-response-backend] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-09-09T12:35:48.212+05:30  INFO 23332 --- [incident-response-backend] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 5504 ms
+2026-09-09T12:35:50.326+05:30  INFO 23332 --- [incident-response-backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-09-09T12:35:50.349+05:30  INFO 23332 --- [incident-response-backend] [           main] c.i.IncidentResponseApplication          : Started IncidentResponseApplication in 10.03 seconds (process running for 11.263)
+2026-09-09T12:36:03.028+05:30  INFO 23332 --- [incident-response-backend] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-09T12:36:03.030+05:30  INFO 23332 --- [incident-response-backend] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-09-09T12:36:03.032+05:30  INFO 23332 --- [incident-response-backend] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:3.5.5:run (default-cli) on project incident-response-backend: Process terminated with exit code: -1 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
