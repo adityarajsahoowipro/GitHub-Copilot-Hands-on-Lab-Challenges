@@ -1,0 +1,70 @@
+[
+  {
+    "incidentId": "INC-1006",
+    "incidentSummary": "Checkout Service Failure. Users cannot place orders Impact reported on Checkout Service at P1 severity.",
+    "rootCause": "Root cause not yet confirmed. Investigation findings must be reviewed and entered here once the responsible team has identified the underlying technical cause.",
+    "impactedServices": [
+      "Checkout Service"
+    ],
+    "resolution": "Resolution details pending human review.",
+    "lessonsLearned": "Lessons learned pending human review.",
+    "recommendations": [
+      "Given the P1 severity, prioritize a post-incident review within 48 hours and validate rollback/runbook readiness.",
+      "Confirm whether other incidents affecting Checkout Service share a common trigger.",
+      "This draft was generated automatically and requires human review before it is considered final."
+    ],
+    "generatedAt": "2026-09-09T07:06:39.440Z",
+    "updatedAt": "2026-09-09T07:06:39.440Z"
+  },
+  {
+    "incidentId": "INC-1008",
+    "incidentSummary": "Payment Gateway Timeout Error 2. Customers are unable to complete payments during checkout. The payment service is timing out intermittently, causing transaction failures and order processing delays. Impact reported on Payment Service at P1 severity.",
+    "rootCause": "Root cause not yet confirmed. Investigation findings must be reviewed and entered here once the responsible team has identified the underlying technical cause.",
+    "impactedServices": [
+      "Mobile service"
+    ],
+    "resolution": "Resolution details pending human review.",
+    "lessonsLearned": "Lessons learned pending human review.",
+    "recommendations": [
+      "Given the P1 severity, prioritize a post-incident review within 48 hours and validate rollback/runbook readiness.",
+      "Confirm whether other incidents affecting Payment Service share a common trigger.",
+      "This draft was generated automatically and requires human review before it is considered final."
+    ],
+    "generatedAt": "2026-09-09T07:26:53.380Z",
+    "updatedAt": "2026-09-09T07:39:47.355Z"
+  },
+  {
+    "incidentId": "INC-1007",
+    "incidentSummary": "Checkout Service Failure. Users cannot place orders Impact reported on Checkout Service at P1 severity.",
+    "rootCause": "Root cause not yet confirmed. Investigation findings must be reviewed and entered here once the responsible team has identified the underlying technical cause.",
+    "impactedServices": [
+      "Payment Service"
+    ],
+    "resolution": "Resolution details pending human review.",
+    "lessonsLearned": "Lessons learned pending human review.",
+    "recommendations": [
+      "Given the P1 severity, prioritize a post-incident review within 48 hours and validate rollback/runbook readiness.",
+      "Confirm whether other incidents affecting Checkout Service share a common trigger.",
+      "This draft was generated automatically and requires human review before it is considered final."
+    ],
+    "generatedAt": "2026-09-09T07:38:12.549Z",
+    "updatedAt": "2026-09-09T07:38:41.658Z"
+  },
+  {
+    "incidentId": "INC-1002",
+    "incidentSummary": "Search results delayed for large catalogs. Search API latency increased for catalogs over 10k items. No error codes reported. Impact reported on search-service at P2 severity.",
+    "rootCause": "Root cause not yet confirmed. Investigation findings must be reviewed and entered here once the responsible team has identified the underlying technical cause.",
+    "impactedServices": [
+      "search-service"
+    ],
+    "resolution": "Resolution details pending human review.",
+    "lessonsLearned": "Lessons learned pending human review.",
+    "recommendations": [
+      "Given the P2 severity, schedule a post-incident review within one week and confirm monitoring coverage.",
+      "Confirm whether other incidents affecting search-service share a common trigger.",
+      "This draft was generated automatically and requires human review before it is considered final."
+    ],
+    "generatedAt": "2026-09-09T07:42:57.818Z",
+    "updatedAt": "2026-09-09T07:42:57.818Z"
+  }
+]

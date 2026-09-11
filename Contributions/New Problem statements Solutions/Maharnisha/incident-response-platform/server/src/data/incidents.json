@@ -1,0 +1,305 @@
+[
+  {
+    "incidentId": "INC-1001",
+    "title": "Checkout API returning HTTP 500 errors",
+    "description": "Customers report failed checkouts. Error logs show ERR-500 responses from the payments gateway.",
+    "severity": "P2",
+    "status": "MITIGATED",
+    "owner": "Asha Kapoor",
+    "impactedService": "checkout-service",
+    "createdAt": "2026-09-09T02:43:28.739Z",
+    "updatedAt": "2026-09-10T12:58:27.827Z",
+    "history": [
+      {
+        "type": "INCIDENT_CREATED",
+        "message": "Incident created.",
+        "timestamp": "2026-09-09T05:43:28.740Z"
+      },
+      {
+        "type": "SLA_BREACHED",
+        "message": "SLA breached: SLA breached. Target of 2h was exceeded.",
+        "timestamp": "2026-09-09T05:54:29.881Z"
+      },
+      {
+        "type": "STATUS_UPDATED",
+        "message": "Status changed from OPEN to INVESTIGATING",
+        "timestamp": "2026-09-09T08:01:04.657Z",
+        "previousValue": "OPEN",
+        "newValue": "INVESTIGATING"
+      },
+      {
+        "type": "SEVERITY_CHANGED",
+        "message": "Severity changed from P1 to P2.",
+        "timestamp": "2026-09-10T12:57:42.782Z",
+        "previousValue": "P1",
+        "newValue": "P2"
+      },
+      {
+        "type": "STATUS_UPDATED",
+        "message": "Status changed from INVESTIGATING to MITIGATED",
+        "timestamp": "2026-09-10T12:58:27.827Z",
+        "previousValue": "INVESTIGATING",
+        "newValue": "MITIGATED"
+      }
+    ]
+  },
+  {
+    "incidentId": "INC-1002",
+    "title": "Search results delayed for large catalogs",
+    "description": "Search API latency increased for catalogs over 10k items. No error codes reported.",
+    "severity": "P2",
+    "status": "INVESTIGATING",
+    "owner": "Miguel Santos",
+    "impactedService": "search-service",
+    "createdAt": "2026-09-09T02:31:28.740Z",
+    "updatedAt": "2026-09-09T07:42:57.824Z",
+    "history": [
+      {
+        "type": "INCIDENT_CREATED",
+        "message": "Incident created.",
+        "timestamp": "2026-09-09T05:43:28.740Z"
+      },
+      {
+        "type": "STATUS_CHANGED",
+        "message": "Status changed from OPEN to INVESTIGATING.",
+        "timestamp": "2026-09-09T05:43:28.740Z",
+        "previousValue": "OPEN",
+        "newValue": "INVESTIGATING"
+      },
+      {
+        "type": "SLA_BREACHED",
+        "message": "SLA breached: SLA breached. Target of 4h was exceeded.",
+        "timestamp": "2026-09-09T06:38:47.160Z"
+      },
+      {
+        "type": "RCA_GENERATED",
+        "message": "RCA draft generated and requires human review.",
+        "timestamp": "2026-09-09T07:42:57.824Z"
+      }
+    ]
+  },
+  {
+    "incidentId": "INC-1003",
+    "title": "Notification emails sent with outdated template",
+    "description": "Marketing noticed the shipment-confirmation template is a week out of date. Low customer impact.",
+    "severity": "P3",
+    "status": "OPEN",
+    "owner": "Priya Nair",
+    "impactedService": "notification-service",
+    "createdAt": "2026-09-09T04:43:28.740Z",
+    "updatedAt": "2026-09-10T09:26:44.112Z",
+    "history": [
+      {
+        "type": "INCIDENT_CREATED",
+        "message": "Incident created.",
+        "timestamp": "2026-09-09T05:43:28.740Z"
+      },
+      {
+        "type": "SLA_BREACHED",
+        "message": "SLA breached: SLA breached. Target of 8h was exceeded.",
+        "timestamp": "2026-09-10T09:26:44.112Z"
+      }
+    ]
+  },
+  {
+    "incidentId": "INC-1004",
+    "title": "Login page intermittently unavailable",
+    "description": "Auth service pods restarted repeatedly overnight. Root cause traced to a memory leak, resolved.",
+    "severity": "P2",
+    "status": "CLOSED",
+    "owner": "Daniel Osei",
+    "impactedService": "auth-service",
+    "createdAt": "2026-09-07T23:43:28.740Z",
+    "updatedAt": "2026-09-09T06:04:37.543Z",
+    "history": [
+      {
+        "type": "INCIDENT_CREATED",
+        "message": "Incident created.",
+        "timestamp": "2026-09-09T05:43:28.740Z"
+      },
+      {
+        "type": "STATUS_CHANGED",
+        "message": "Status changed from OPEN to INVESTIGATING.",
+        "timestamp": "2026-09-09T05:43:28.740Z",
+        "previousValue": "OPEN",
+        "newValue": "INVESTIGATING"
+      },
+      {
+        "type": "STATUS_CHANGED",
+        "message": "Status changed from INVESTIGATING to MITIGATED.",
+        "timestamp": "2026-09-09T05:43:28.740Z",
+        "previousValue": "INVESTIGATING",
+        "newValue": "MITIGATED"
+      },
+      {
+        "type": "STATUS_CHANGED",
+        "message": "Status changed from MITIGATED to CLOSED.",
+        "timestamp": "2026-09-09T05:43:28.740Z",
+        "previousValue": "MITIGATED",
+        "newValue": "CLOSED"
+      },
+      {
+        "type": "SEVERITY_CHANGED",
+        "message": "Severity changed from P2 to P1.",
+        "timestamp": "2026-09-09T06:04:20.744Z",
+        "previousValue": "P2",
+        "newValue": "P1"
+      },
+      {
+        "type": "SEVERITY_CHANGED",
+        "message": "Severity changed from P1 to P2.",
+        "timestamp": "2026-09-09T06:04:37.543Z",
+        "previousValue": "P1",
+        "newValue": "P2"
+      }
+    ]
+  },
+  {
+    "incidentId": "INC-1005",
+    "title": "Inventory sync mismatch for warehouse region EU-2",
+    "description": "Reconciliation job ERR-409 conflicts observed. Mitigation applied, monitoring for recurrence.",
+    "severity": "P1",
+    "status": "MITIGATED",
+    "owner": "Asha Kapoor",
+    "impactedService": "inventory-service",
+    "createdAt": "2026-09-09T04:13:28.740Z",
+    "updatedAt": "2026-09-09T06:38:47.160Z",
+    "history": [
+      {
+        "type": "INCIDENT_CREATED",
+        "message": "Incident created.",
+        "timestamp": "2026-09-09T05:43:28.740Z"
+      },
+      {
+        "type": "STATUS_CHANGED",
+        "message": "Status changed from OPEN to INVESTIGATING.",
+        "timestamp": "2026-09-09T05:43:28.741Z",
+        "previousValue": "OPEN",
+        "newValue": "INVESTIGATING"
+      },
+      {
+        "type": "STATUS_CHANGED",
+        "message": "Status changed from INVESTIGATING to MITIGATED.",
+        "timestamp": "2026-09-09T05:43:28.741Z",
+        "previousValue": "INVESTIGATING",
+        "newValue": "MITIGATED"
+      },
+      {
+        "type": "SLA_BREACHED",
+        "message": "SLA breached: SLA breached. Target of 2h was exceeded.",
+        "timestamp": "2026-09-09T06:38:47.160Z"
+      }
+    ]
+  },
+  {
+    "incidentId": "INC-1006",
+    "title": "Checkout Service Failure",
+    "description": "Users cannot place orders",
+    "severity": "P1",
+    "status": "OPEN",
+    "owner": "Operations Team",
+    "impactedService": "Checkout Service",
+    "createdAt": "2026-09-09T05:58:14.133Z",
+    "updatedAt": "2026-09-09T08:00:44.409Z",
+    "history": [
+      {
+        "type": "INCIDENT_CREATED",
+        "message": "Incident created.",
+        "timestamp": "2026-09-09T05:58:14.135Z"
+      },
+      {
+        "type": "RCA_GENERATED",
+        "message": "RCA draft generated and requires human review.",
+        "timestamp": "2026-09-09T07:06:39.449Z"
+      },
+      {
+        "type": "SLA_BREACHED",
+        "message": "SLA breached: SLA breached. Target of 2h was exceeded.",
+        "timestamp": "2026-09-09T08:00:44.409Z"
+      }
+    ]
+  },
+  {
+    "incidentId": "INC-1007",
+    "title": "Checkout Service Failure",
+    "description": "Users cannot place orders",
+    "severity": "P1",
+    "status": "OPEN",
+    "owner": "Operations Team",
+    "impactedService": "Checkout Service",
+    "createdAt": "2026-09-09T06:43:49.035Z",
+    "updatedAt": "2026-09-10T09:26:44.112Z",
+    "history": [
+      {
+        "type": "INCIDENT_CREATED",
+        "message": "Incident created.",
+        "timestamp": "2026-09-09T06:43:49.036Z"
+      },
+      {
+        "type": "RCA_GENERATED",
+        "message": "RCA draft generated and requires human review.",
+        "timestamp": "2026-09-09T07:38:12.551Z"
+      },
+      {
+        "type": "RCA_UPDATED",
+        "message": "RCA reviewed and updated.",
+        "timestamp": "2026-09-09T07:38:41.661Z"
+      },
+      {
+        "type": "SLA_BREACHED",
+        "message": "SLA breached: SLA breached. Target of 2h was exceeded.",
+        "timestamp": "2026-09-10T09:26:44.112Z"
+      }
+    ]
+  },
+  {
+    "incidentId": "INC-1008",
+    "title": "Payment Gateway Timeout Error 2",
+    "description": "Customers are unable to complete payments during checkout. The payment service is timing out intermittently, causing transaction failures and order processing delays.",
+    "severity": "P1",
+    "status": "INVESTIGATING",
+    "owner": "Engineering Operations Team",
+    "impactedService": "Payment Service",
+    "createdAt": "2026-09-09T07:26:09.254Z",
+    "updatedAt": "2026-09-10T09:26:44.112Z",
+    "history": [
+      {
+        "type": "INCIDENT_CREATED",
+        "message": "Incident created.",
+        "timestamp": "2026-09-09T07:26:09.256Z"
+      },
+      {
+        "type": "STATUS_UPDATED",
+        "message": "Status changed from OPEN to INVESTIGATING",
+        "timestamp": "2026-09-09T07:26:21.217Z",
+        "previousValue": "OPEN",
+        "newValue": "INVESTIGATING"
+      },
+      {
+        "type": "RCA_GENERATED",
+        "message": "RCA draft generated and requires human review.",
+        "timestamp": "2026-09-09T07:26:53.384Z"
+      },
+      {
+        "type": "RCA_UPDATED",
+        "message": "RCA reviewed and updated.",
+        "timestamp": "2026-09-09T07:28:41.493Z"
+      },
+      {
+        "type": "RCA_UPDATED",
+        "message": "RCA reviewed and updated.",
+        "timestamp": "2026-09-09T07:29:17.000Z"
+      },
+      {
+        "type": "RCA_UPDATED",
+        "message": "RCA reviewed and updated.",
+        "timestamp": "2026-09-09T07:39:47.359Z"
+      },
+      {
+        "type": "SLA_BREACHED",
+        "message": "SLA breached: SLA breached. Target of 2h was exceeded.",
+        "timestamp": "2026-09-10T09:26:44.112Z"
+      }
+    ]
+  }
+]
