@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-head">
+  <h1>Root Cause Analysis — {{ incident.incidentId }}</h1>
+  <a class="btn btn-secondary" href="/incidents/{{ incident.incidentId }}">Back to incident</a>
+</div>
+
+<div class="status-strip" style="margin-top:0">
+  <span class="badge sev-{{ incident.severity.value }}">{{ incident.severity.value }} &middot; {{ incident.severity.label }}</span>
+  <span class="badge status-{{ incident.status.value }}">{{ incident.status.value }}</span>
+  <span class="muted">{{ incident.title }}</span>
+</div>
+
+{% if notice %}
+<div class="alert alert-ok" style="margin-top:16px">{{ notice }}</div>
+{% endif %}
+
+{% if warnings %}
+<div class="alert alert-warn" style="margin-top:16px">
+  <strong>Incomplete incident information</strong>
+  <ul>{% for warning in warnings %}<li>{{ warning }}</li>{% endfor %}</ul>
+</div>
+{% endif %}
+
+{% if not report %}
+<p class="muted">No RCA has been generated for this incident yet.</p>
+<form method="post" action="/incidents/{{ incident.incidentId }}/rca/generate">
+  <button class="btn" type="submit">Generate RCA</button>
+</form>
+{% else %}
+
+<p class="muted">
+  Generated {{ report.generatedAt | datetime }} &middot; last updated {{ report.updatedAt | datetime }}
+</p>
+
+<h2 class="section-title">Report</h2>
+<pre class="rca-output">Incident Summary:
+{{ report.incidentSummary }}
+
+Root Cause:
+{{ report.rootCause }}
+
+Impacted Services:
+{% for service in report.impactedServices %}- {{ service }}
+{% endfor %}
+Resolution:
+{{ report.resolution }}
+
+Lessons Learned:
+{{ report.lessonsLearned }}
+
+Recommendations:
+{% for recommendation in report.recommendations %}- {{ recommendation }}
+{% endfor %}</pre>
+
+<h2 class="section-title">Edit report</h2>
+<form class="form" method="post" action="/incidents/{{ incident.incidentId }}/rca">
+  <div class="field">
+    <label for="incidentSummary">Incident summary</label>
+    <textarea id="incidentSummary" name="incidentSummary">{{ report.incidentSummary }}</textarea>
+  </div>
+  <div class="field">
+    <label for="rootCause">Root cause</label>
+    <textarea id="rootCause" name="rootCause">{{ report.rootCause }}</textarea>
+  </div>
+  <div class="field">
+    <label for="impactedServices">Impacted services <span class="muted">(one per line)</span></label>
+    <textarea id="impactedServices" name="impactedServices">{% for service in report.impactedServices %}{{ service }}
+{% endfor %}</textarea>
+  </div>
+  <div class="field">
+    <label for="resolution">Resolution</label>
+    <textarea id="resolution" name="resolution">{{ report.resolution }}</textarea>
+  </div>
+  <div class="field">
+    <label for="lessonsLearned">Lessons learned</label>
+    <textarea id="lessonsLearned" name="lessonsLearned">{{ report.lessonsLearned }}</textarea>
+  </div>
+  <div class="field">
+    <label for="recommendations">Recommendations <span class="muted">(one per line)</span></label>
+    <textarea id="recommendations" name="recommendations">{% for recommendation in report.recommendations %}{{ recommendation }}
+{% endfor %}</textarea>
+  </div>
+  <div>
+    <button class="btn" type="submit">Save RCA</button>
+  </div>
+</form>
+
+<form method="post" action="/incidents/{{ incident.incidentId }}/rca/generate" style="margin-top:12px">
+  <button class="btn btn-secondary" type="submit">Regenerate from incident data</button>
+  <span class="muted">Overwrites your edits.</span>
+</form>
+{% endif %}
+{% endblock %}

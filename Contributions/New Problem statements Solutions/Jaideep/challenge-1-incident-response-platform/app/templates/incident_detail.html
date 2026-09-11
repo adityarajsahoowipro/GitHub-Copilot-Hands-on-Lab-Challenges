@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-head">
+  <h1>{{ incident.incidentId }} — {{ incident.title }}</h1>
+  <div class="filter-actions">
+    <a class="btn" href="/incidents/{{ incident.incidentId }}/rca">Root Cause Analysis</a>
+    <a class="btn btn-secondary" href="/incidents">Back to list</a>
+  </div>
+</div>
+
+<div class="status-strip">
+  <span class="badge sev-{{ incident.severity.value }}">{{ incident.severity.value }} &middot; {{ incident.severity.label }}</span>
+  <span class="badge status-{{ incident.status.value }}">{{ incident.status.value }}</span>
+  <span class="badge sla-{{ sla.status.value }}">{{ sla.label }}</span>
+</div>
+
+{% if sla.warning %}
+<div class="alert alert-warn" style="margin-top:16px">{{ sla.warning }}</div>
+{% elif sla.recommendation %}
+<div class="alert {{ 'alert-error' if sla.is_breached else 'alert-warn' }}" style="margin-top:16px">
+  <strong>{{ 'SLA breached' if sla.is_breached else 'Approaching SLA' }}</strong> — {{ sla.recommendation }}
+</div>
+{% endif %}
+
+<h2 class="section-title">SLA ({{ sla.targetHours }}h target for {{ incident.severity.value }})</h2>
+<section class="card-grid">
+  <article class="card">
+    <h2>Deadline</h2>
+    <p>{{ sla.deadline | datetime }}</p>
+  </article>
+  <article class="card">
+    <h2>Time elapsed</h2>
+    <p>{{ sla.elapsed | duration }}</p>
+  </article>
+  <article class="card">
+    <h2>Time remaining</h2>
+    <p>{{ sla.remaining | duration }}</p>
+  </article>
+  <article class="card">
+    <h2>SLA consumed</h2>
+    <div class="bar" style="margin-top:10px">
+      <div class="bar-fill {{ 'is-danger' if sla.is_breached else ('is-warn' if sla.status.value == 'APPROACHING_SLA' else 'is-ok') }}"
+           style="width: {{ sla.percentElapsed or 0 }}%"></div>
+    </div>
+    <p class="muted" style="font-size:12px;margin-top:6px">{{ sla.percentElapsed or 0 }}% of target</p>
+  </article>
+</section>
+
+<section class="card-grid" style="margin-top:20px">
+  <article class="card">
+    <h2>Owner</h2>
+    <p>{{ incident.owner or "Unassigned" }}</p>
+  </article>
+  <article class="card">
+    <h2>Impacted service</h2>
+    <p>{{ incident.impactedService }}</p>
+  </article>
+  <article class="card">
+    <h2>Created</h2>
+    <p>{{ incident.createdAt | datetime }}</p>
+  </article>
+  <article class="card">
+    <h2>Last updated</h2>
+    <p>{{ incident.updatedAt | datetime }}</p>
+  </article>
+  {% if incident.resolvedAt %}
+  <article class="card">
+    <h2>Resolved</h2>
+    <p>{{ incident.resolvedAt | datetime }}</p>
+  </article>
+  {% endif %}
+</section>
+
+<h2 class="section-title">Description</h2>
+<p>{{ incident.description or "No description provided." }}</p>
+
+{% if notice %}
+<div class="alert alert-ok" style="margin-top:16px">{{ notice }}</div>
+{% endif %}
+
+<h2 class="section-title">Linked incidents</h2>
+{% if links %}
+<table class="table">
+  <thead>
+    <tr><th>ID</th><th>Title</th><th>Service</th><th>Severity</th><th>Status</th></tr>
+  </thead>
+  <tbody>
+    {% for link in links %}
+    <tr>
+      <td><a href="/incidents/{{ link.incidentId }}">{{ link.incidentId }}</a></td>
+      <td>{{ link.title }}</td>
+      <td>{{ link.impactedService }}</td>
+      <td><span class="badge sev-{{ link.severity.value }}">{{ link.severity.value }}</span></td>
+      <td><span class="badge status-{{ link.status.value }}">{{ link.status.value }}</span></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p class="muted">No incidents have been linked to {{ incident.incidentId }} yet.</p>
+{% endif %}
+
+<h2 class="section-title">Possible related incidents</h2>
+{% if related %}
+<section class="card-grid">
+  {% for match in related %}
+  <article class="card">
+    <h2>
+      <a href="/incidents/{{ match.incidentId }}">{{ match.incidentId }}</a> — {{ match.title }}
+    </h2>
+    <p class="muted" style="font-size:12px">
+      {{ match.impactedService }} &middot; {{ match.severity.value }} &middot; {{ match.status.value }}
+      &middot; {{ match.createdAt | datetime }}
+    </p>
+    <p style="margin-top:8px"><strong>Reason:</strong></p>
+    <ul>
+      {% for reason in match.reasons %}<li>{{ reason }}</li>{% endfor %}
+    </ul>
+    {% if match.linked %}
+    <p class="muted">Already linked.</p>
+    {% else %}
+    <form method="post" action="/incidents/{{ incident.incidentId }}/link">
+      <input type="hidden" name="relatedIncidentId" value="{{ match.incidentId }}">
+      <button class="btn btn-secondary" type="submit">Link incident</button>
+    </form>
+    {% endif %}
+  </article>
+  {% endfor %}
+</section>
+{% else %}
+<p class="muted">No related incidents were detected using the current matching rules.</p>
+{% endif %}
+
+<h2 class="section-title">Update incident</h2>
+
+{% if errors %}
+<div class="alert alert-error">
+  <ul>{% for error in errors %}<li>{{ error }}</li>{% endfor %}</ul>
+</div>
+{% endif %}
+
+<form class="form" method="post" action="/incidents/{{ incident.incidentId }}/update">
+  <div class="field">
+    <label for="status">Status</label>
+    {% if next_statuses %}
+    <select id="status" name="status">
+      <option value="{{ incident.status.value }}">{{ incident.status.value }} (no change)</option>
+      {% for next_status in next_statuses %}
+      <option value="{{ next_status.value }}">
+        {% if incident.status.value == 'CLOSED' and next_status.value == 'OPEN' %}
+        Reopen incident (back to OPEN)
+        {% else %}
+        Move to {{ next_status.value }}
+        {% endif %}
+      </option>
+      {% endfor %}
+    </select>
+    {% else %}
+    <p class="muted">{{ incident.status.value }} is a terminal status — no further transitions.</p>
+    {% endif %}
+  </div>
+
+  <div class="field">
+    <label for="owner">Owner</label>
+    <input id="owner" name="owner" value="{{ incident.owner or '' }}" placeholder="Unassigned">
+  </div>
+
+  <div class="field">
+    <label for="severity">Severity</label>
+    <select id="severity" name="severity">
+      {% for severity in severities %}
+      <option value="{{ severity.value }}" {% if incident.severity == severity %}selected{% endif %}>
+        {{ severity.value }} — {{ severity.label }}
+      </option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="field">
+    <label for="impactedService">Impacted service</label>
+    <input id="impactedService" name="impactedService" value="{{ incident.impactedService }}">
+  </div>
+
+  <div><button class="btn" type="submit">Save changes</button></div>
+</form>
+
+<h2 class="section-title">Timeline</h2>
+{% if incident.timeline %}
+<table class="table">
+  <thead>
+    <tr><th>When</th><th>Event</th><th>Detail</th></tr>
+  </thead>
+  <tbody>
+    {% for entry in incident.timeline %}
+    <tr>
+      <td class="muted">{{ entry.timestamp | datetime }}</td>
+      <td><span class="badge badge-muted">{{ entry.type }}</span></td>
+      <td>{{ entry.message }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p class="muted">No activity recorded.</p>
+{% endif %}
+{% endblock %}

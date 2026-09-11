@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-head">
+  <h1>Dashboard</h1>
+  <a class="btn btn-secondary" href="/incidents">View all incidents</a>
+</div>
+
+{% if metrics.breached %}
+<div class="alert alert-error">
+  <strong>⚠ {{ metrics.breached | length }} incident{{ 's' if metrics.breached | length != 1 }} breached the SLA — immediate attention required</strong>
+  <ul>
+    {% for incident, sla in metrics.breached %}
+    <li>
+      <a href="/incidents/{{ incident.incidentId }}">{{ incident.incidentId }}</a>
+      — {{ incident.title }}
+      <span class="badge sev-{{ incident.severity.value }}">{{ incident.severity.value }}</span>
+      {{ sla.remaining | duration }} ·
+      owner {{ incident.owner or "unassigned" }} ·
+      {{ sla.recommendation }}
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<section class="card-grid">
+  <article class="card metric">
+    <span class="metric-value">{{ metrics.total }}</span>
+    <span class="metric-label">Total incidents</span>
+  </article>
+  <article class="card metric">
+    <span class="metric-value">{{ metrics.active }}</span>
+    <span class="metric-label">Active</span>
+  </article>
+  {% for status in statuses %}
+  <article class="card metric">
+    <span class="metric-value">{{ metrics.byStatus[status.value] }}</span>
+    <span class="metric-label">
+      <span class="badge status-{{ status.value }}">{{ status.value }}</span>
+    </span>
+  </article>
+  {% endfor %}
+</section>
+
+<h2 class="section-title">Severity breakdown</h2>
+<section class="card-grid">
+  {% for severity in severities %}
+  <article class="card metric">
+    <span class="metric-value sev-text-{{ severity.value }}">{{ metrics.bySeverity[severity.value] }}</span>
+    <span class="metric-label">
+      <span class="badge sev-{{ severity.value }}">{{ severity.value }} — {{ severity.label }}</span>
+    </span>
+  </article>
+  {% endfor %}
+</section>
+
+<h2 class="section-title">SLA monitoring</h2>
+<section class="card-grid">
+  {% for sla_status in sla_statuses %}
+  <article class="card metric">
+    <span class="metric-value">{{ metrics.bySla[sla_status.value] }}</span>
+    <span class="metric-label">
+      <a href="/incidents?sla={{ sla_status.value }}">
+        <span class="badge sla-{{ sla_status.value }}">{{ sla_status.value.replace('_', ' ') }}</span>
+      </a>
+    </span>
+  </article>
+  {% endfor %}
+</section>
+
+<div class="split">
+  <section>
+    <h2 class="section-title">Status distribution</h2>
+    {% if metrics.total %}
+    {% for status in statuses %}
+    <div class="bar-row">
+      <div class="bar-label">
+        <a href="/incidents?status={{ status.value }}"><span class="badge status-{{ status.value }}">{{ status.value }}</span></a>
+        <span class="muted">{{ metrics.byStatus[status.value] }} ({{ metrics.statusPercentages[status.value] }}%)</span>
+      </div>
+      <div class="bar">
+        <div class="bar-fill fill-{{ status.value }}" style="width: {{ metrics.statusPercentages[status.value] }}%"></div>
+      </div>
+    </div>
+    {% endfor %}
+    <p class="muted" style="margin-top:16px">Resolution rate: {{ metrics.resolutionRate }}%</p>
+    {% else %}
+    <p class="muted">No incidents yet.</p>
+    {% endif %}
+  </section>
+
+  <section>
+    <h2 class="section-title">Severity split</h2>
+    {% if donut %}
+    <div class="donut-wrap">
+      <svg class="donut" viewBox="0 0 180 180" role="img" aria-label="Incidents by severity">
+        <circle class="donut-track" cx="90" cy="90" r="70"></circle>
+        {% for segment in donut %}
+        <circle class="donut-seg donut-{{ segment.severity }}" cx="90" cy="90" r="70"
+                stroke-dasharray="{{ segment.dash }} {{ segment.gap }}"
+                stroke-dashoffset="{{ segment.offset }}">
+          <title>{{ segment.severity }} — {{ segment.count }} ({{ segment.percent }}%)</title>
+        </circle>
+        {% endfor %}
+        <text class="donut-total" x="90" y="86">{{ metrics.total }}</text>
+        <text class="donut-caption" x="90" y="104">incidents</text>
+      </svg>
+      <ul class="legend">
+        {% for segment in donut %}
+        <li>
+          <span class="legend-dot dot-{{ segment.severity }}"></span>
+          <a href="/incidents?severity={{ segment.severity }}">{{ segment.severity }} — {{ segment.label }}</a>
+          <span class="muted">{{ segment.count }} ({{ segment.percent }}%)</span>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% else %}
+    <p class="muted">No incidents to chart yet. <a href="/incidents/new">Create one.</a></p>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

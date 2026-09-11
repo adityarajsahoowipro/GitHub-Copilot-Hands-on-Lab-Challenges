@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+  <h1>Incident Response Platform</h1>
+  <p class="lede">
+    Track production incidents, manage their lifecycle, generate root cause
+    analysis reports and monitor SLA compliance.
+  </p>
+</section>
+
+<section class="card-grid">
+  <article class="card">
+    <h2>Incidents</h2>
+    <p>Create, list and inspect production incidents.</p>
+  </article>
+  <article class="card">
+    <h2>Dashboard</h2>
+    <p>Operational metrics across status and severity.</p>
+  </article>
+  <article class="card">
+    <h2>Root Cause Analysis</h2>
+    <p>Generate and edit structured RCA reports.</p>
+  </article>
+  <article class="card">
+    <h2>SLA Monitoring</h2>
+    <p>Deadline tracking and automatic escalation.</p>
+  </article>
+</section>
+
+<section class="status-strip">
+  <span class="badge badge-ok">Service healthy</span>
+  <a href="/health">/health</a>
+</section>
+{% endblock %}
