@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block page_title %}{{ title }} &middot; {{ app_name }}{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='css/styles.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/">{{ app_name }}</a>
+    <nav class="nav">
+      <a href="/dashboard">Dashboard</a>
+      <a href="/incidents">Incidents</a>
+      <a href="/incidents/new">New incident</a>
+      {% block nav %}{% endblock %}
+      <a href="/docs">API Docs</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <span>{{ app_name }}</span>
+  </footer>
+</body>
+</html>

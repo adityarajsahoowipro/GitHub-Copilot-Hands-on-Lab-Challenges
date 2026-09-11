@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-head">
+  <h1>Incidents</h1>
+  <a class="btn" href="/incidents/new">Create incident</a>
+</div>
+
+<form class="filters" method="get" action="/incidents">
+  <div class="field">
+    <label for="q">Search title</label>
+    <input id="q" name="q" value="{{ filters.q }}" placeholder="checkout">
+  </div>
+  <div class="field">
+    <label for="status">Status</label>
+    <select id="status" name="status">
+      <option value="">All</option>
+      {% for status in statuses %}
+      <option value="{{ status.value }}" {% if filters.status == status.value %}selected{% endif %}>{{ status.value }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="field">
+    <label for="severity">Severity</label>
+    <select id="severity" name="severity">
+      <option value="">All</option>
+      {% for severity in severities %}
+      <option value="{{ severity.value }}" {% if filters.severity == severity.value %}selected{% endif %}>{{ severity.value }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="field">
+    <label for="owner">Owner</label>
+    <select id="owner" name="owner">
+      <option value="">All</option>
+      {% for owner in owners %}
+      <option value="{{ owner }}" {% if filters.owner == owner %}selected{% endif %}>{{ owner }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="field">
+    <label for="service">Impacted service</label>
+    <select id="service" name="service">
+      <option value="">All</option>
+      {% for service in services %}
+      <option value="{{ service }}" {% if filters.service == service %}selected{% endif %}>{{ service }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="field">
+    <label for="sla">SLA status</label>
+    <select id="sla" name="sla">
+      <option value="">All</option>
+      {% for sla_status in sla_statuses %}
+      <option value="{{ sla_status.value }}" {% if filters.sla == sla_status.value %}selected{% endif %}>{{ sla_status.value.replace('_', ' ') }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="field">
+    <label for="sort_by">Sort by</label>
+    <select id="sort_by" name="sort_by">
+      <option value="createdAt" {% if filters.sort_by == 'createdAt' %}selected{% endif %}>Created date</option>
+      <option value="severity" {% if filters.sort_by == 'severity' %}selected{% endif %}>Severity</option>
+      <option value="status" {% if filters.sort_by == 'status' %}selected{% endif %}>Status</option>
+      <option value="title" {% if filters.sort_by == 'title' %}selected{% endif %}>Title</option>
+    </select>
+  </div>
+  <div class="field">
+    <label for="order">Order</label>
+    <select id="order" name="order">
+      <option value="desc" {% if filters.order == 'desc' %}selected{% endif %}>Descending</option>
+      <option value="asc" {% if filters.order == 'asc' %}selected{% endif %}>Ascending</option>
+    </select>
+  </div>
+  <div class="filter-actions">
+    <button class="btn" type="submit">Apply</button>
+    <a class="btn btn-secondary" href="/incidents">Reset</a>
+  </div>
+</form>
+
+<p class="muted">Showing {{ pairs | length }} of {{ total_count }} incidents.</p>
+
+{% if pairs %}
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Severity</th>
+      <th>Status</th>
+      <th>SLA</th>
+      <th>Owner</th>
+      <th>Impacted service</th>
+      <th>Created</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for incident, sla in pairs %}
+    <tr {% if sla.is_breached %}class="row-alert"{% endif %}>
+      <td><a href="/incidents/{{ incident.incidentId }}">{{ incident.incidentId }}</a></td>
+      <td>{{ incident.title }}</td>
+      <td><span class="badge sev-{{ incident.severity.value }}">{{ incident.severity.value }} &middot; {{ incident.severity.label }}</span></td>
+      <td><span class="badge status-{{ incident.status.value }}">{{ incident.status.value }}</span></td>
+      <td class="nowrap">
+        <span class="badge sla-{{ sla.status.value }}">{{ sla.label }}</span>
+        {% if sla.remaining and sla.status.value != 'NOT_APPLICABLE' %}
+        <div class="muted" style="font-size:12px">
+          {{ sla.remaining | duration }}{{ '' if sla.is_breached else ' left' }}
+        </div>
+        {% endif %}
+      </td>
+      <td>{{ incident.owner or "Unassigned" }}</td>
+      <td>{{ incident.impactedService }}</td>
+      <td class="muted nowrap">{{ incident.createdAt | datetime }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p class="muted">No incidents match these filters. <a href="/incidents">Reset filters</a> or <a href="/incidents/new">create one.</a></p>
+{% endif %}
+{% endblock %}

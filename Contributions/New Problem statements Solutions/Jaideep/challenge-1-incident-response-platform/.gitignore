@@ -1,0 +1,28 @@
+# Virtual environments
+.venv*/
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.Python
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Runtime data — regenerate with scripts/seed.py
+data/*.json
+!data/.gitkeep
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
